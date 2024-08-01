@@ -19,7 +19,9 @@ func home(w http.ResponseWriter, r *http.Request) {
 	// file in the slice.
 	files := []string{
 		"./ui/html/base.tmpl.html",
-		"./ui/html/pages/home.tmpl.html"}
+		"./ui/html/pages/home.tmpl.html",
+		"./ui/html/partials/nav.tmpl.html",
+	}
 
 	ts, err := template.ParseFiles(files...)
 	if err != nil {
