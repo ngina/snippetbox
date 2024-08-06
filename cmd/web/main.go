@@ -6,11 +6,10 @@ import (
 	"log"
 	"net/http"
 	"os"
-	
+
 	"snippetbox.ngina.com/internal/models"
 
 	_ "github.com/go-sql-driver/mysql"
-
 )
 
 func main() {
@@ -22,12 +21,10 @@ func main() {
 	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
 	db, err := openDB(*dsn)
-	if err != nil { 
+	if err != nil {
 		errorLog.Fatal(err)
 	}
-	
-	// We also defer a call to db.Close(), so that the connection pool is closed 
-	// before the main() function exits.
+
 	defer db.Close()
 
 	app := &application{
@@ -47,15 +44,13 @@ func main() {
 	errorLog.Fatal(err)
 }
 
-// The openDB() function wraps sql.Open() and returns a sql.DB connection pool
-// for a given DSN.
-func openDB(dsn string) (*sql.DB, error) { 
+func openDB(dsn string) (*sql.DB, error) {
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
-		return nil, err 
-	}
-	if err = db.Ping(); err != nil { 
 		return nil, err
 	}
-		return db, nil 
+	if err = db.Ping(); err != nil {
+		return nil, err
 	}
+	return db, nil
+}
