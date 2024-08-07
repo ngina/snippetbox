@@ -32,5 +32,5 @@ func (app *application) notFound(w http.ResponseWriter) {
 func (app *application) newTemplateData(_ *http.Request) *templateData {
 	return &templateData{
 		CurrentYear: time.Now().Year(),
-	} 
+	}
 }

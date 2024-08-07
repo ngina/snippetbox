@@ -26,17 +26,16 @@ func main() {
 	}
 	defer db.Close()
 
-
 	// Initialize a new template cache...
-	templateCache, err := newTemplateCache() 
+	templateCache, err := newTemplateCache()
 	if err != nil {
-		errorLog.Fatal(err) 
+		errorLog.Fatal(err)
 	}
 
 	app := &application{
-		infoLog:  infoLog,
-		errorLog: errorLog,
-		snippets: &models.SnippetModel{DB: db},
+		infoLog:       infoLog,
+		errorLog:      errorLog,
+		snippets:      &models.SnippetModel{DB: db},
 		templateCache: templateCache,
 	}
 
