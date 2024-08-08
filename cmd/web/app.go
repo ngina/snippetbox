@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"log"
 
+	"github.com/go-playground/form/v4"
 	"snippetbox.ngina.com/internal/models"
 )
 
@@ -12,4 +13,5 @@ type application struct {
 	infoLog       *log.Logger
 	snippets      *models.SnippetModel
 	templateCache map[string]*template.Template
+	formDecoder   *form.Decoder
 }

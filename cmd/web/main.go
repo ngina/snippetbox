@@ -9,6 +9,7 @@ import (
 
 	"snippetbox.ngina.com/internal/models"
 
+	"github.com/go-playground/form/v4"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -26,17 +27,19 @@ func main() {
 	}
 	defer db.Close()
 
-	// Initialize a new template cache...
 	templateCache, err := newTemplateCache()
 	if err != nil {
 		errorLog.Fatal(err)
 	}
+
+	formDecoder := form.NewDecoder()
 
 	app := &application{
 		infoLog:       infoLog,
 		errorLog:      errorLog,
 		snippets:      &models.SnippetModel{DB: db},
 		templateCache: templateCache,
+		formDecoder:   formDecoder,
 	}
 
 	srv := &http.Server{

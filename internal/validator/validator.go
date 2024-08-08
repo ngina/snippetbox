@@ -15,7 +15,8 @@ func (v *Validator) Valid() bool {
 	return len(v.FieldErrors) == 0
 }
 
-// AddFieldError() adds an error message to the FieldErrors map (so long as no // entry already exists for the given key).
+// AddFieldError() adds an error message to the FieldErrors map (so long as no 
+// entry already exists for the given key).
 func (v *Validator) AddFieldError(key, message string) {
 	// Note: We need to initialize the map first, if it isn't already // initialized.
 	if v.FieldErrors == nil {
@@ -26,7 +27,8 @@ func (v *Validator) AddFieldError(key, message string) {
 	}
 }
 
-// CheckField() adds an error message to the FieldErrors map only if a // validation check is not 'ok'.
+// CheckField() adds an error message to the FieldErrors map only if a 
+// validation check is not 'ok'.
 func (v *Validator) CheckField(ok bool, key, message string) {
 	if !ok {
 		v.AddFieldError(key, message)
