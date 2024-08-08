@@ -43,3 +43,14 @@ CREATE USER 'web'@'localhost';
 -- Important: Make sure to swap 'pass' with a password of your own choosing.
 GRANT SELECT, INSERT, UPDATE, DELETE ON snippetbox.* TO 'web'@'localhost';
 ALTER USER 'web'@'localhost' IDENTIFIED BY 'webapp';
+
+-- create a sessions table in our MySQL database to hold the session data for our users.
+USE snippetbox;
+CREATE TABLE sessions (
+    token CHAR(43) PRIMARY KEY, 
+    data BLOB NOT NULL,
+    expiry TIMESTAMP(6) NOT NULL
+);
+
+-- Add an index on the expiry column.
+CREATE INDEX sessions_expiry_idx ON sessions (expiry);
