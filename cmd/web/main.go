@@ -47,13 +47,14 @@ func main() {
 		infoLog:        infoLog,
 		errorLog:       errorLog,
 		snippets:       &models.SnippetModel{DB: db},
+		users:          &models.UserModel{DB: db},
 		templateCache:  templateCache,
 		formDecoder:    formDecoder,
 		sessionManager: sessionManager,
 	}
 
-	// Initialize a tls.Config struct to hold the non-default TLS settings we 
-	// want the server to use. In this case the only thing that we're changing 
+	// Initialize a tls.Config struct to hold the non-default TLS settings we
+	// want the server to use. In this case the only thing that we're changing
 	// is the curve preferences value, so that only elliptic curves with
 	// assembly implementations are used.
 	tlsConfig := &tls.Config{
@@ -61,10 +62,13 @@ func main() {
 	}
 
 	srv := &http.Server{
-		Addr:      *addr,
-		ErrorLog:  errorLog,
-		Handler:   app.routes(),
-		TLSConfig: tlsConfig,
+		Addr:         *addr,
+		ErrorLog:     errorLog,
+		Handler:      app.routes(),
+		TLSConfig:    tlsConfig,
+		IdleTimeout:  time.Minute,
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 10 * time.Second,
 	}
 
 	infoLog.Printf("Starting server on : %s", *addr)
